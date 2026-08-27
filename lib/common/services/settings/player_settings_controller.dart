@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:pure_live/common/index.dart';
 import 'package:pure_live/common/consts/app_consts.dart';
 import 'package:pure_live/player/utils/player_consts.dart';
+import 'package:pure_live/common/global/platform_utils.dart';
 import 'package:pure_live/player/core/portrait_stream_support.dart';
 
 @visibleForTesting
