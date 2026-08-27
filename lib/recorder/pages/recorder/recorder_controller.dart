@@ -58,6 +58,7 @@ class RecorderController extends GetxService {
     _resourceMonitor = Timer.periodic(const Duration(minutes: 1), (_) {
       if (settings.enableCacheLimit.value) unawaited(_checkResources());
     });
+    Timer.periodic(const Duration(seconds: 30), (_) => _checkRunningTasksForOffline());
     _ffmpegSub = ffmpeg.stream.listen((event) => unawaited(_handleFFmpegEvent(event)));
     unawaited(restoreAndAutoPoll());
   }
@@ -608,6 +609,26 @@ class RecorderController extends GetxService {
       developer.log('Recorder cache check failed: $error', name: 'RecorderController');
     } finally {
       _resourceCheckRunning = false;
+    }
+  }
+
+  Future<void> _checkRunningTasksForOffline() async {
+    final runningTasks = tasks.where((t) => t.status == RecordStatus.running).toList();
+    for (final task in runningTasks) {
+      try {
+        final site = Sites.of(task.platform).liveSite;
+        final room = site is LiveSiteRoomRefresher
+            ? await (site as LiveSiteRoomRefresher).getRoomDetailForRefresh(roomId: task.roomId, platform: task.platform)
+            : await site.getRoomDetail(roomId: task.roomId, platform: task.platform);
+        task.updateFromRoom(room);
+        final isLiving = room.liveStatus == LiveStatus.live || room.status == true || room.isRecord == true;
+        if (!isLiving) {
+          developer.log('Detected anchor offline for running task: ${task.taskId}', name: 'RecorderController');
+          task.wasStoppedByUser = true;
+          await ffmpeg.stop(task.taskId);
+          ToastUtil.show(i18n('anchor_offline_auto_stopped_and_saved', args: {'name': task.nick}));
+        }
+      } catch (_) {}
     }
   }
 

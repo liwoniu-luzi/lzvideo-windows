@@ -38,14 +38,13 @@ class MediaKitAdapter implements UnifiedPlayer, MediaKitPlayerAccessor {
   static Future<void> applyNativeLiveProperties(dynamic native) async {
     await native.setProperty('force-seekable', 'yes');
 
-    await native.setProperty('protocol_whitelist', 'httpproxy,udp,rtp,tcp,tls,data,file,http,https,crypto');
+    await native.setProperty('tls-verify', 'no');
 
-    await native.setProperty('demuxer-lavf-probesize', '2097152');
+    await native.setProperty('ytdl', 'no');
 
-    // Live FLV/HLS streams need a short probe rather than a long-file
-    // analysis pass.  This reduces the black-screen interval before the
-    // first decoded frame while retaining enough data for codec detection.
-    await native.setProperty('demuxer-lavf-analyzeduration', '100000');
+    await native.setProperty('user-agent', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36');
+
+    await native.setProperty('demuxer-lavf-probesize', '4194304');
 
     // mpv's generic defaults keep a large seek-oriented forward/backward
     // cache. Live rooms are not meaningfully seekable, so retaining that

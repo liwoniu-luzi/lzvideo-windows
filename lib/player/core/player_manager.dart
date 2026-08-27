@@ -1459,7 +1459,7 @@ class PlayerManager {
   }
 
   Widget _buildVideoWidget(UnifiedPlayer player, BoxFit boxFit) {
-    if (currentEngine is MediaKitAdapter) {
+    if (player is MediaKitAdapter || currentEngine == PlayerEngine.mediaKit) {
       return player.getVideoWidget(boxFit);
     }
     return StreamBuilder<List<int?>>(
