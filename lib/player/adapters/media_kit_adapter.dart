@@ -241,13 +241,7 @@ class MediaKitAdapter implements UnifiedPlayer, MediaKitPlayerAccessor {
 
       await _player.open(Media(url, httpHeaders: headers), play: true);
 
-      // mpv opens a normal Android source with `vid=auto`, and the Surface
-      // controller already owns that same initial state. Reissuing an async
-      // `vid=auto` command here can stay pending after the first frame is
-      // visible; the room controller's initialization Future then never
-      // completes and the first headphone tap waits on a stream that is already
-      // playing. Audio-only still needs an explicit post-open selection.
-      if (PlatformUtils.isAndroid && !audioOnly) {
+      if (!audioOnly) {
         _isAudioOnly = false;
       } else {
         await _applyAudioOnly(audioOnly, force: true);
