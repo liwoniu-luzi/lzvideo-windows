@@ -169,7 +169,12 @@ class PlayerSettingsController extends GetxController {
   void fromJson(Map<String, dynamic> json) {
     videoFitIndex.v = json['videoFitIndex'] ?? 0;
 
-    videoPlayerKey.v = json['videoPlayerKey'] ?? _defaultVideoPlayerKey;
+    final rawPlayerKey = json['videoPlayerKey']?.toString() ?? _defaultVideoPlayerKey;
+    if (PlatformUtils.isDesktop && rawPlayerKey != 'mpv') {
+      videoPlayerKey.v = 'mpv';
+    } else {
+      videoPlayerKey.v = rawPlayerKey;
+    }
 
     preferResolution.v = json['preferResolution'] ?? PlayerConsts.resolutions.first;
 
@@ -177,7 +182,7 @@ class PlayerSettingsController extends GetxController {
 
     enableCodec.v = json['enableCodec'] ?? true;
 
-    playerCompatMode.v = json['playerCompatMode'] ?? false;
+    playerCompatMode.v = PlatformUtils.isAndroid ? (json['playerCompatMode'] ?? false) : false;
 
     customPlayerOutput.v = json['customPlayerOutput'] ?? false;
 

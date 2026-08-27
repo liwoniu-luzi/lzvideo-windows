@@ -76,8 +76,12 @@ class MediaKitAdapter implements UnifiedPlayer, MediaKitPlayerAccessor {
     }
 
     if (PlatformUtils.isWindows && SettingsService.to.player.enableRtxVsr.value) {
-      await native.setProperty('hwdec', 'd3d11va');
-      await native.setProperty('vf', 'd3d11vpp=scale=2:scaling-mode=nvidia');
+      try {
+        await native.setProperty('hwdec', 'd3d11va');
+        await native.setProperty('vf', 'd3d11vpp=scale=2:scaling-mode=nvidia');
+      } catch (e) {
+        debugPrint('RTX VSR enable failed: $e');
+      }
     }
   }
 
@@ -167,7 +171,7 @@ class MediaKitAdapter implements UnifiedPlayer, MediaKitPlayerAccessor {
       // =========================
       // controller
       // =========================
-      _controller = SettingsService.to.player.playerCompatMode.v
+      _controller = (PlatformUtils.isAndroid && SettingsService.to.player.playerCompatMode.v)
           ? VideoController(
               _player,
               configuration: const VideoControllerConfiguration(vo: 'mediacodec_embed', hwdec: 'mediacodec'),

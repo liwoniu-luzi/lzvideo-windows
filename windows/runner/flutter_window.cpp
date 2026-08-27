@@ -73,6 +73,17 @@ LRESULT
 FlutterWindow::MessageHandler(HWND hwnd, UINT const message,
                               WPARAM const wparam,
                               LPARAM const lparam) noexcept {
+  // Allow clean OS restart / shutdown without being blocked by prevent-close or causing access violations.
+  if (message == WM_QUERYENDSESSION) {
+    return TRUE;
+  }
+  if (message == WM_ENDSESSION) {
+    if (wparam == TRUE) {
+      ::ExitProcess(0);
+    }
+    return 0;
+  }
+
   if (message == WM_MOVE || message == WM_DISPLAYCHANGE ||
       message == WM_DPICHANGED) {
     NotifyDisplayModeChanged(message == WM_DISPLAYCHANGE);
