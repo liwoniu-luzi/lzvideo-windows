@@ -35,7 +35,7 @@ jobs:
       - name: Generate production AppConfig
         shell: pwsh
         run: |
-          dart run tool/env.dart prod
+          dart run enven --env-files .env,.env.prod --class-name AppConfig
 
       - name: Get version
         id: version
