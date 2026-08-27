@@ -50,7 +50,7 @@ class _VersionHistoryPageState extends State<VersionHistoryPage> with SingleTick
     try {
       historyLoading.value = true;
       historyError.value = false;
-      final mirror = GitHubMirror(owner: 'liuchuancong', repo: 'pure_live', branch: 'master');
+      final mirror = GitHubMirror(owner: VersionUtil.updateOwner, repo: VersionUtil.updateRepository, branch: 'master');
       final timestamp = DateTime.now().millisecondsSinceEpoch;
       final sourceUrls = SettingsService.to.app.useGitHubOriginForUpdates.v
           ? [mirror.rawUrl('assets/releases.json')]

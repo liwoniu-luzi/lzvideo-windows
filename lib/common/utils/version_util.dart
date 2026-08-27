@@ -22,7 +22,7 @@ class VersionUtil {
   static final String projectUrl = 'https://github.com/$updateOwner/$updateRepository';
   static final String defaultAvatar = 'https://avatars.githubusercontent.com/u/36957912?v=4';
   static final String issuesUrl = '$projectUrl/issues';
-  static const String githubUrl = 'https://github.com/liuchuancong';
+  static const String githubUrl = 'https://github.com/liwoniu-luzi';
 
   static const String email = '17792321552@163.com';
   static const String emailUrl = 'mailto:17792321552@163.com?subject=PureLive Feedback';

@@ -108,9 +108,9 @@ class AuthorModel {
 
   factory AuthorModel.defaultAuthor() {
     return AuthorModel(
-      name: 'liuchuancong',
+      name: 'liwoniu-luzi',
       avatar: 'https://avatars.githubusercontent.com/u/36957912?v=4',
-      profile: 'https://github.com/liuchuancong',
+      profile: 'https://github.com/liwoniu-luzi',
     );
   }
 

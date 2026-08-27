@@ -11,7 +11,7 @@ class AppConfig {
 }
 
 class AppConfigData {
-  final String pureliveUpdateOwner = 'liuchuancong';
+  final String pureliveUpdateOwner = 'liwoniu-luzi';
 
-  final String pureliveUpdateRepository = 'pure_live';
+  final String pureliveUpdateRepository = 'lzvideo-windows';
 }

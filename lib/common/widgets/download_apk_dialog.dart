@@ -1,6 +1,7 @@
-import 'dart:io';
+import 'dart:io' as io;
 import 'dart:developer';
 
+import 'package:dio/io.dart';
 import 'package:dio/dio.dart';
 import 'package:path/path.dart' as path;
 import 'package:open_filex/open_filex.dart';
@@ -32,7 +33,34 @@ class _DownloadApkDialogState extends State<DownloadApkDialog> {
     super.initState();
     _statusText = i18n("download_preparing");
     _cancelToken = CancelToken();
-    _dio = Dio(BaseOptions(connectTimeout: const Duration(seconds: 15), receiveTimeout: const Duration(seconds: 120)));
+    _dio = Dio(
+      BaseOptions(
+        connectTimeout: const Duration(seconds: 30),
+        receiveTimeout: const Duration(minutes: 10),
+        sendTimeout: const Duration(seconds: 30),
+        followRedirects: true,
+        maxRedirects: 8,
+      ),
+    )..httpClientAdapter = IOHttpClientAdapter(
+        createHttpClient: () {
+          final client = io.HttpClient();
+          client.idleTimeout = const Duration(seconds: 30);
+          client.findProxy = (uri) {
+            try {
+              final proxyCtrl = SettingsService.to.proxy;
+              if (proxyCtrl.enableAppProxy.value &&
+                  proxyCtrl.appProxyHost.value.trim().isNotEmpty &&
+                  proxyCtrl.appProxyPort.value > 0) {
+                final host = proxyCtrl.appProxyHost.value.trim();
+                final port = proxyCtrl.appProxyPort.value;
+                return 'PROXY $host:$port';
+              }
+            } catch (_) {}
+            return 'DIRECT';
+          };
+          return client;
+        },
+      );
     WidgetsBinding.instance.addPostFrameCallback((_) => _startDownload());
   }
 
@@ -44,7 +72,7 @@ class _DownloadApkDialogState extends State<DownloadApkDialog> {
       try {
         final files = baseDir.listSync();
         for (final f in files) {
-          if (f is File && f.path.endsWith('.apk')) {
+          if (f is io.File && f.path.endsWith('.apk')) {
             await f.delete();
           }
         }
@@ -53,13 +81,12 @@ class _DownloadApkDialogState extends State<DownloadApkDialog> {
       }
 
       final apkName = fileName ?? widget.apkUrl.split('/').last;
-      final file = File(path.join(baseDir.path, apkName));
+      final file = io.File(path.join(baseDir.path, apkName));
       await _dio.download(
         widget.apkUrl,
         file.path,
         options: Options(
           headers: {'Cache-Control': 'no-cache', 'Pragma': 'no-cache', 'Expires': '0'},
-          receiveTimeout: const Duration(seconds: 30),
         ),
         onReceiveProgress: (received, total) {
           if (!mounted) return;
@@ -90,7 +117,7 @@ class _DownloadApkDialogState extends State<DownloadApkDialog> {
         _statusText = i18n("download_complete_installing");
       });
 
-      if (Platform.isAndroid) {
+      if (io.Platform.isAndroid) {
         Get.showSnackbar(
           GetSnackBar(
             message: i18n("install_tip"),
@@ -117,7 +144,7 @@ class _DownloadApkDialogState extends State<DownloadApkDialog> {
           if (await windowManager.isPreventClose()) {
             await windowManager.setPreventClose(false);
           }
-          exit(0);
+          io.exit(0);
         }
 
         if (result.type != ResultType.done) {
@@ -136,11 +163,11 @@ class _DownloadApkDialogState extends State<DownloadApkDialog> {
     }
   }
 
-  Future<Directory> _getSafeDownloadDir() async {
-    Directory downloadDir;
-    if (Platform.isAndroid) {
+  Future<io.Directory> _getSafeDownloadDir() async {
+    io.Directory downloadDir;
+    if (io.Platform.isAndroid) {
       final dir = await getDownloadsDirectory();
-      downloadDir = Directory(path.join(dir!.path, 'pure_live'));
+      downloadDir = io.Directory(path.join(dir!.path, 'pure_live'));
     } else {
       downloadDir = await AppPathManager().getDir(AppPathManager.dirDownload);
     }

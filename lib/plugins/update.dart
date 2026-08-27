@@ -11,25 +11,24 @@ Future<bool> requestStorageInstallPermission() async {
   return true;
 }
 
-final List<String> mirrors = [
-  'https://gh-proxy.org/',
-  'https://gh.h233.eu.org/',
-  'https://git.yylx.win/',
-  'https://ghproxy.cc/',
-  'https://cdn.gh-proxy.org/',
-  'https://wget.la/',
-  'https://github.ednovas.xyz/',
-  'https://down.npee.cn/?',
-  'https://slink.ltd/',
-  'https://gitproxy.click/',
-];
+/// 用户自有 Cloudflare 专属 CDN 加速域名（免代理直连）
+const String customCdnDomain = 'gh.lz1861.ccwu.cc';
 
 List<String> getMirrorUrls(String apkUrl, {bool githubOriginOnly = false}) {
   if (apkUrl.trim().isEmpty) return const [];
   if (githubOriginOnly) return [apkUrl];
-  final mirrorsUrl = mirrors.map((e) => '$e$apkUrl').toList();
-  mirrorsUrl.add(apkUrl);
-  return mirrorsUrl.toSet().toList(growable: false);
+
+  // 将 GitHub Releases 下载链接转为用户自有 Cloudflare 专属 CDN 节点加速地址
+  final cdnUrl = apkUrl.startsWith('https://github.com/')
+      ? 'https://$customCdnDomain/${apkUrl.substring(19)}'
+      : apkUrl;
+
+  final urls = <String>[];
+  if (cdnUrl != apkUrl) {
+    urls.add(cdnUrl);
+  }
+  urls.add(apkUrl);
+  return urls.toSet().toList(growable: false);
 }
 
 Future<void> downloadAndInstallApk(String apkUrl, {String? fileName}) async {
