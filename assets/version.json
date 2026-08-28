@@ -1,23 +1,23 @@
 {
-  "version": "3.0.6",
-  "build_number": 4094,
-  "version_num": 300064094,
+  "version": "3.0.7",
+  "build_number": 4095,
+  "version_num": 300074095,
   "android_abis": [
     "armeabi-v7a",
     "arm64-v8a",
     "x86_64"
   ],
-  "version_desc": "version: 3.0.6\n版本更新：\n- 优化windows的画中画只能区分横竖屏。\n- 添加刘海屏适配。\n- 备份添加cookie和webdav等用户数据。\n- 优化Iptv的竖屏显示。\n- 修复快手直播源获取错误。",
+  "version_desc": "version: 3.0.7\n版本更新：\n- 彻底剥离第三方在线更新链接，接入自有 Cloudflare 专属 CDN 加速（免代理直连更新）。\n- 修复 WebDAV 配置同步导致的跨平台播放黑屏问题。\n- 修复 Windows 关机/重启时应用拦截与内存报错问题。\n- 支持 Windows 安装版 (.exe) 与便携版 (.zip) 双分发，安装版支持自选安装位置并自动覆盖旧版本。",
   "prerelease": false,
-  "download_url": "https://github.com/liwoniu-luzi/lzvideo-windows/releases/tag/v3.0.6",
+  "download_url": "https://github.com/liwoniu-luzi/lzvideo-windows/releases/tag/v3.0.7",
   "platforms": {
     "android": {
-      "version": "3.0.6",
-      "build_number": 4094,
-      "version_num": 300064094,
-      "version_desc": "version: 3.0.6\n版本更新：\n- 优化windows的画中画只能区分横竖屏。\n- 添加刘海屏适配。\n- 备份添加cookie和webdav等用户数据。\n- 优化Iptv的竖屏显示。\n- 修复快手直播源获取错误。",
+      "version": "3.0.7",
+      "build_number": 4095,
+      "version_num": 300074095,
+      "version_desc": "version: 3.0.7\n版本更新：\n- 彻底剥离第三方在线更新链接，接入自有 Cloudflare 专属 CDN 加速。\n- 修复 WebDAV 配置同步导致的跨平台播放黑屏问题。",
       "prerelease": false,
-      "download_url": "https://github.com/liwoniu-luzi/lzvideo-windows/releases/tag/v3.0.6",
+      "download_url": "https://github.com/liwoniu-luzi/lzvideo-windows/releases/tag/v3.0.7",
       "android_abis": [
         "armeabi-v7a",
         "arm64-v8a",
@@ -25,37 +25,37 @@
       ]
     },
     "windows": {
-      "version": "3.0.6",
-      "build_number": 4094,
-      "version_num": 300064094,
-      "version_desc": "version: 3.0.6\n版本更新：\n- 优化windows的画中画只能区分横竖屏。\n- 添加刘海屏适配。\n- 备份添加cookie和webdav等用户数据。\n- 优化Iptv的竖屏显示。\n- 修复快手直播源获取错误。",
+      "version": "3.0.7",
+      "build_number": 4095,
+      "version_num": 300074095,
+      "version_desc": "version: 3.0.7\n版本更新：\n- 彻底剥离第三方在线更新链接，接入自有 Cloudflare 专属 CDN 加速（免代理直连更新）。\n- 修复 WebDAV 配置同步导致的跨平台播放黑屏问题。\n- 修复 Windows 关机/重启时应用拦截与内存报错问题。\n- 提供 EXE 安装版（支持自选安装路径并无缝覆盖更新）与 ZIP 便携版。",
       "prerelease": false,
-      "download_url": "https://github.com/liwoniu-luzi/lzvideo-windows/releases/tag/v3.0.6",
+      "download_url": "https://github.com/liwoniu-luzi/lzvideo-windows/releases/tag/v3.0.7",
       "windows_msix_available": true
     },
     "linux": {
-      "version": "3.0.6",
-      "build_number": 4094,
-      "version_num": 300064094,
-      "version_desc": "version: 3.0.6\n版本更新：\n- 优化windows的画中画只能区分横竖屏。\n- 添加刘海屏适配。\n- 备份添加cookie和webdav等用户数据。\n- 优化Iptv的竖屏显示。\n- 修复快手直播源获取错误。",
+      "version": "3.0.7",
+      "build_number": 4095,
+      "version_num": 300074095,
+      "version_desc": "version: 3.0.7\n版本更新：\n- 彻底剥离第三方在线更新链接，接入自有 Cloudflare 专属 CDN 加速。\n- 修复 WebDAV 跨平台配置同步问题。",
       "prerelease": false,
-      "download_url": "https://github.com/liwoniu-luzi/lzvideo-windows/releases/tag/v3.0.6"
+      "download_url": "https://github.com/liwoniu-luzi/lzvideo-windows/releases/tag/v3.0.7"
     },
     "macos": {
-      "version": "3.0.6",
-      "build_number": 4094,
-      "version_num": 300064094,
-      "version_desc": "version: 3.0.6\n版本更新：\n- 优化windows的画中画只能区分横竖屏。\n- 添加刘海屏适配。\n- 备份添加cookie和webdav等用户数据。\n- 优化Iptv的竖屏显示。\n- 修复快手直播源获取错误。",
+      "version": "3.0.7",
+      "build_number": 4095,
+      "version_num": 300074095,
+      "version_desc": "version: 3.0.7\n版本更新：\n- 彻底剥离第三方在线更新链接，接入自有 Cloudflare 专属 CDN 加速。\n- 修复 WebDAV 跨平台配置同步问题。",
       "prerelease": false,
-      "download_url": "https://github.com/liwoniu-luzi/lzvideo-windows/releases/tag/v3.0.6"
+      "download_url": "https://github.com/liwoniu-luzi/lzvideo-windows/releases/tag/v3.0.7"
     },
     "ios": {
-      "version": "3.0.6",
-      "build_number": 4094,
-      "version_num": 300064094,
-      "version_desc": "version: 3.0.6\n版本更新：\n- 优化windows的画中画只能区分横竖屏。\n- 添加刘海屏适配。\n- 备份添加cookie和webdav等用户数据。\n- 优化Iptv的竖屏显示。\n- 修复快手直播源获取错误。",
+      "version": "3.0.7",
+      "build_number": 4095,
+      "version_num": 300074095,
+      "version_desc": "version: 3.0.7\n版本更新：\n- 彻底剥离第三方在线更新链接，接入自有 Cloudflare 专属 CDN 加速。\n- 修复 WebDAV 跨平台配置同步问题。",
       "prerelease": false,
-      "download_url": "https://github.com/liwoniu-luzi/lzvideo-windows/releases/tag/v3.0.6"
+      "download_url": "https://github.com/liwoniu-luzi/lzvideo-windows/releases/tag/v3.0.7"
     }
   }
 }
